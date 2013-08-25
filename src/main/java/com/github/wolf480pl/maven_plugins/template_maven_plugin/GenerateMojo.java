@@ -20,6 +20,7 @@ import java.io.File;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -32,13 +33,38 @@ public class GenerateMojo extends AbstractMojo {
     /**
      * Location of the file.
      */
-    @Parameter(defaultValue = "${project.build.directory}/generated-source", property = "outputDir", required = true)
+    @Parameter(alias = "outputDir", defaultValue = "${project.build.directory}/generated-source", required = true)
     private File outputDirectory;
-    
-    @Parameter(defaultValue = "${basedir}/src/main/templates", property = "templateDir", required = true)
+
+    @Parameter(alias = "templateDir", defaultValue = "${basedir}/src/main/templates", required = true)
     private File templateDirectory;
 
-    public void execute() throws MojoExecutionException {
-        Generator.
+    @Parameter(alias = "cleanOutput")
+    private boolean clean;
+
+    public void execute() throws MojoExecutionException, MojoFailureException {
+        if (!this.templateDirectory.exists()) {
+            getLog().error("Template directory \"" + this.templateDirectory + "\" not found");
+            throw new MojoExecutionException("Template directory \"" + this.templateDirectory + "\" not found");
+        }
+        if (!this.templateDirectory.isDirectory()) {
+            getLog().error("Template directory \"" + this.templateDirectory + "\" is not a directory");
+            throw new MojoExecutionException("Template directory \"" + this.templateDirectory + "\" is not a directory");
+        }
+
+        if (!this.outputDirectory.exists()) {
+            if (!this.outputDirectory.mkdirs()) {
+                getLog().error("contentCould not create output directory \"" + this.outputDirectory + "\"");
+                throw new MojoExecutionException("Could not create output directory \"" + this.outputDirectory + "\"");
+            } else {
+                getLog().info("Created output directory \"" + this.outputDirectory + "\"");
+            }
+        }
+
+        Generator generator = new Generator(this.outputDirectory);
+        if (this.clean) {
+            generator.clean();
+        }
+        generator.generate(this.templateDirectory);
     }
 }
