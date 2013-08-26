@@ -40,9 +40,11 @@ import java.io.File;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 
 import com.github.wolf480pl.maven_plugins.template_maven_plugin.Generator.WrapperInfo;
 
@@ -51,6 +53,9 @@ import com.github.wolf480pl.maven_plugins.template_maven_plugin.Generator.Wrappe
  */
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class GenerateMojo extends AbstractMojo {
+    @Component
+    private MavenProject project;
+
     /**
      * Directory where generated sources should be placed.
      */
@@ -102,5 +107,9 @@ public class GenerateMojo extends AbstractMojo {
             generator.clean();
         }
         generator.generate(this.templateDirectory);
+
+        if (!this.project.getCompileSourceRoots().contains(this.outputDirectory.getAbsolutePath())) {
+            this.project.addCompileSourceRoot(this.outputDirectory.getAbsolutePath());
+        }
     }
 }
