@@ -202,7 +202,7 @@
               <settingsFile>src/it/settings.xml</settingsFile>
               <goals>
                 <goal>clean</goal>
-                <goal>package</goal>
+                <goal>test-compile</goal>
               </goals>
             </configuration>
             <executions>
