@@ -61,7 +61,7 @@ public class GenerateMojo extends AbstractMojo {
             }
         }
 
-        Generator generator = new Generator(this.outputDirectory);
+        Generator generator = new Generator(getLog(), this.outputDirectory);
         if (this.clean) {
             generator.clean();
         }

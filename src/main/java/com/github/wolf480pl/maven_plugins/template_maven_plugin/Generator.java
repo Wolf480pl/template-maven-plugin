@@ -40,6 +40,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.apache.maven.plugin.logging.Log;
+
 /**
  * <p>Generator class that builds final source files from templates. It does so by
  * replacing patterns in the template files.</p>
@@ -291,7 +293,7 @@ public class Generator {
             makeDirs(output_directory);
         }
 
-        Generator instance = new Generator(output_directory);
+        Generator instance = new Generator(new StreamLog(false), output_directory);
 
         if (clean_output) {
             System.out.println("Removing contents of \"" + output_directory + "\"...");
@@ -352,14 +354,15 @@ public class Generator {
     }
 
     private final WrapperInfo[] wrappers;
-
     private final File outputRootDir;
+    private final Log log;
 
-    public Generator(File outputDir) {
-        this(outputDir, WRAPPERS);
+    public Generator(Log log, File outputDir) {
+        this(log, outputDir, WRAPPERS);
     }
 
-    public Generator(File outputDir, WrapperInfo[] wrappers) {
+    public Generator(Log log, File outputDir, WrapperInfo[] wrappers) {
+        this.log = log;
         this.outputRootDir = outputDir;
         this.wrappers = wrappers;
     }
@@ -409,7 +412,7 @@ public class Generator {
     private void processFile(File input_file, File output_directory)
             throws IOException {
 
-        System.out.println("Process file: " + input_file);
+        this.log.info("Process file: " + input_file);
 
         String content = readFile(input_file);
 
@@ -426,7 +429,7 @@ public class Generator {
             processEMarkers(content, output_directory, file_name);
         } else {
             if (input_file.lastModified() < output_file.lastModified()) {
-                System.out.println("File " + output_file + " up to date, not processing input");
+                this.log.info("File " + output_file + " up to date, not processing input");
                 return;
             }
 
@@ -594,8 +597,7 @@ public class Generator {
             try {
                 processFile(file, output_directory);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                this.log.error("IOException ocurred while processing file: " + file, e);
             }
         }
     }
@@ -632,8 +634,8 @@ public class Generator {
 
                 matches = Arrays.equals(current_file, new_file);
             } catch (NoSuchAlgorithmException ex) {
-                System.err.println(
-                        "WARNING: Couldn't load digest algorithm to compare " +
+                this.log.warn(
+                        "Couldn't load digest algorithm to compare " +
                                 "new and old template. Generation will be forced.");
                 matches = false;
             }
@@ -647,9 +649,9 @@ public class Generator {
         if (need_to_move) {
             delete(output_file);
             copyFile(temp, output_file);
-            System.out.println("  Wrote: " + simplifyPath(output_file));
+            this.log.info("  Wrote: " + simplifyPath(output_file));
         } else {
-            System.out.println("  Skipped: " + simplifyPath(output_file));
+            this.log.info("  Skipped: " + simplifyPath(output_file));
             delete(temp);
         }
     }
