@@ -664,13 +664,16 @@ public class Generator {
         }
     }
 
-    private static class WrapperInfo {
-        final String primitive;
-        final String class_name;
-        final String max_value;
-        final String min_value;
+    public static class WrapperInfo {
+        protected String primitive;
+        protected String class_name;
+        protected String max_value;
+        protected String min_value;
 
-        WrapperInfo(String primitive, String class_name, String max_value,
+        public WrapperInfo() {
+        }
+
+        protected WrapperInfo(String primitive, String class_name, String max_value,
                 String min_value) {
 
             this.primitive = primitive;

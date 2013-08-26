@@ -44,23 +44,35 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
+import com.github.wolf480pl.maven_plugins.template_maven_plugin.Generator.WrapperInfo;
+
 /**
  *
  */
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class GenerateMojo extends AbstractMojo {
     /**
-     * Location of the file.
+     * Directory where generated sources should be placed.
      */
-    @Parameter(alias = "outputDir", defaultValue = "${project.build.directory}/generated-source", required = true)
+    @Parameter(alias = "outputDir", defaultValue = "${project.build.directory}/generated-sources/template", required = true)
     private File outputDirectory;
 
-    @Parameter(alias = "templateDir", defaultValue = "${basedir}/src/main/templates", required = true)
+    /**
+     * Directory where to look for templates.
+     */
+    @Parameter(alias = "templateDir", defaultValue = "${basedir}/src/main/template", required = true)
     private File templateDirectory;
 
+    /**
+     * Whether or not clean the outputDirectory before generating sources.
+     */
     @Parameter(alias = "cleanOutput")
     private boolean clean;
 
+    @Parameter
+    private WrapperInfo[] wrappers;
+
+    @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (!this.templateDirectory.exists()) {
             getLog().error("Template directory \"" + this.templateDirectory + "\" not found");
@@ -80,7 +92,12 @@ public class GenerateMojo extends AbstractMojo {
             }
         }
 
-        Generator generator = new Generator(getLog(), this.outputDirectory);
+        Generator generator;
+        if (this.wrappers != null) {
+            generator = new Generator(getLog(), this.outputDirectory, this.wrappers);
+        } else {
+            generator = new Generator(getLog(), this.outputDirectory);
+        }
         if (this.clean) {
             generator.clean();
         }

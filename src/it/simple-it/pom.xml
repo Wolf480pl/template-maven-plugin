@@ -28,6 +28,16 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+<!--          <wrappers>
+            <wrapper>
+              <primitive>int</primitive>
+              <class_name>Integer</class_name>
+              <max_value>Integer.MAX_VALUE</max_value>
+              <min_value>Integer.MIN_VALUE</min_value>
+            </wrapper>
+          </wrappers>-->
+        </configuration>
       </plugin>
     </plugins>
   </build>
