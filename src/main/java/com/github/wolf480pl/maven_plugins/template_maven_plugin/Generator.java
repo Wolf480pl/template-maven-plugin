@@ -20,18 +20,7 @@
  */
 package com.github.wolf480pl.maven_plugins.template_maven_plugin;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.Writer;
+import java.io.*;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -76,13 +65,13 @@ import org.apache.maven.plugin.logging.Log;
  */
 public class Generator {
     private static final WrapperInfo[] WRAPPERS = new WrapperInfo[] {
-            new WrapperInfo("double", "Double", "POSITIVE_INFINITY", "NEGATIVE_INFINITY"),
-            new WrapperInfo("float", "Float", "POSITIVE_INFINITY", "NEGATIVE_INFINITY"),
-            new WrapperInfo("int", "Integer", "MAX_VALUE", "MIN_VALUE"),
-            new WrapperInfo("long", "Long", "MAX_VALUE", "MIN_VALUE"),
-            new WrapperInfo("byte", "Byte", "MAX_VALUE", "MIN_VALUE"),
-            new WrapperInfo("short", "Short", "MAX_VALUE", "MIN_VALUE"),
-            new WrapperInfo("char", "Character", "MAX_VALUE", "MIN_VALUE") };
+        new WrapperInfo("double", "Double", "POSITIVE_INFINITY", "NEGATIVE_INFINITY"),
+        new WrapperInfo("float", "Float", "POSITIVE_INFINITY", "NEGATIVE_INFINITY"),
+        new WrapperInfo("int", "Integer", "MAX_VALUE", "MIN_VALUE"),
+        new WrapperInfo("long", "Long", "MAX_VALUE", "MIN_VALUE"),
+        new WrapperInfo("byte", "Byte", "MAX_VALUE", "MIN_VALUE"),
+        new WrapperInfo("short", "Short", "MAX_VALUE", "MIN_VALUE"),
+        new WrapperInfo("char", "Character", "MAX_VALUE", "MIN_VALUE") };
 
     private static final Pattern PATTERN_v;
     private static final Pattern PATTERN_V;
@@ -501,7 +490,7 @@ public class Generator {
         }
     }
 
-    private String processReplication(String content,
+    protected String processReplication(String content,
             Map<Integer, String> replicated_blocks) {
 
         for (Map.Entry<Integer, String> entry : replicated_blocks.entrySet()) {
@@ -636,7 +625,7 @@ public class Generator {
             } catch (NoSuchAlgorithmException ex) {
                 this.log.warn(
                         "Couldn't load digest algorithm to compare " +
-                                "new and old template. Generation will be forced.");
+                        "new and old template. Generation will be forced.");
                 matches = false;
             }
 
