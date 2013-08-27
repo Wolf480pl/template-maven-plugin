@@ -29,10 +29,11 @@
           </execution>
         </executions>
         <configuration>
-<!--          <wrappers>
+<!--         <wrappers>
             <wrapper>
               <primitive>int</primitive>
               <class_name>Integer</class_name>
+              <abbreviation>I</abbreviation>
               <max_value>Integer.MAX_VALUE</max_value>
               <min_value>Integer.MIN_VALUE</min_value>
             </wrapper>
