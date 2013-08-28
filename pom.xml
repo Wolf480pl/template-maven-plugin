@@ -44,6 +44,26 @@
     <developerConnection>scm:git:git@github.com:Wolf480pl/template-maven-plugin.git</developerConnection>
   </scm>
   
+  <!-- Continuous integration -->
+  <ciManagement>
+  	<system>travis</system>
+  	<url>https://travis-ci.org/Wolf480pl/template-maven-plugin</url>
+  </ciManagement>
+  
+  <!-- Distrubution repositories -->
+  <distributionManagement>
+    <snapshotRepository>
+      <id>wolf480pl-snapshots</id>
+      <name>Wolf480pl Nexus Snapshots</name>
+      <url>http://nex-wolf480pl.rhcloud.com/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+    <repository>
+      <id>wolf480pl-releases</id>
+      <name>Wolf480pl Nexus Releases</name>
+      <url>http://nex-wolf480pl.rhcloud.com/nexus/content/repositories/releases/</url>
+    </repository>
+  </distributionManagement>
+  
   <!-- Build dependencies -->
   <dependencies>
     <dependency>

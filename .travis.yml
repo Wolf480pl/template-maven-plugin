@@ -1,0 +1,24 @@
+language: java
+jdk: openjdk7
+before_install:
+  - 'export COMMIT_MESSAGE=`curl https://api.github.com/repos/$TRAVIS_REPO_SLUG/git/commits/$TRAVIS_COMMIT |sed -n ''s/.*"message": "\(.*\)",/\1/p''`'
+  - '[ $TRAVIS_PULL_REQUEST == false -a $TRAVIS_REPO_SLUG == Wolf480pl/GeoAbstract -a $TRAVIS_BRANCH == master ] && export DEPLOY=true'
+install: mvn clean package -DbuildNumber=${TRAVIS_BUILD_NUMBER} -DskipTests=true
+script: mvn -P run-its verify
+after_success:
+  - "git clone -b travis `git config --get remote.origin.url` target/travis"
+  - "[ $DEPLOY == true ] && mvn deploy --settings target/travis/settings.xml -DbuildNumber=${TRAVIS_BUILD_NUMBER}"
+#  - "[ $DEPLOY == true ] && echo $COMMIT_MESSAGE |grep -iF [site] && mvn site-deploy --settings target/travis/settings.xml -DbuildNumber=${TRAVIS_BUILD_NUMBER}"
+
+notifications:
+    email: false
+    webhooks:
+      - http://n.tkte.ch/h/1232/y6Iew4Ugv7uWNsuy2jtOwmyg
+branches:
+  except:
+    - travis
+    - gh-pages
+env:
+  global:
+    - secure: "Kx0u1CeIaX5xn3OiQQmbDKJXHexCHcoJ+HHPbUfLd27Amj8mgSb1igizwo+osuvi+oj4W+RPlSpfFHkaAKIlpEeFTcseHTGMQy+L486cQEpJRLHxWiu/hiqu8WDUXeBSqf3EkBwq1xzlzUlHiwH25zK1amXbwq17EpUhBlFgcVg="
+    - secure: "kpP7s/ECL/2qjTYW6cdVm3twcXr+2piauyy2oRG55F68EwtZBnuuiec7vh6GVMkEAZnPuW9YCxi/Cg0tUS9miWC+KFXXPf006n6uTm1vqKOFcdTbnsQNYZQSFvNJuw3BTbVgKM3HC6DRKmj1hPP0IFzdbm6daJLgsg6L8p+e8SM="
