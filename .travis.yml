@@ -13,7 +13,7 @@ after_success:
 notifications:
     email: false
     webhooks:
-      - http://n.tkte.ch/h/1232/y6Iew4Ugv7uWNsuy2jtOwmyg
+      - http://n.tkte.ch/h/1330/k8sXYF-6jY2n3zKtF5Rf3kaX
 branches:
   except:
     - travis
