@@ -48,8 +48,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.apache.maven.plugin.logging.Log;
-
 /**
  * <p>Generator class that builds final source files from templates. It does so by
  * replacing patterns in the template files.</p>
@@ -363,13 +361,13 @@ public class Generator {
 
     private final WrapperInfo[] wrappers;
     private final File outputRootDir;
-    private final Log log;
+    private final Logging log;
 
-    public Generator(Log log, File outputDir) {
+    public Generator(Logging log, File outputDir) {
         this(log, outputDir, WRAPPERS);
     }
 
-    public Generator(Log log, File outputDir, WrapperInfo[] wrappers) {
+    public Generator(Logging log, File outputDir, WrapperInfo[] wrappers) {
         this.log = log;
         this.outputRootDir = outputDir;
         this.wrappers = wrappers;

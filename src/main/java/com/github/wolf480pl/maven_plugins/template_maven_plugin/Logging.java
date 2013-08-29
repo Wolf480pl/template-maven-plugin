@@ -19,41 +19,13 @@
  */
 package com.github.wolf480pl.maven_plugins.template_maven_plugin;
 
-import java.io.PrintStream;
 
-public class StreamLog implements Logging {
-    private final boolean debug;
-    private final PrintStream out;
-    private final PrintStream err;
+public interface Logging {
 
-    public StreamLog(boolean debug) {
-        this(debug, System.out, System.err);
-    }
+    void info(CharSequence message);
 
-    public StreamLog(boolean debug, PrintStream out) {
-        this(debug, out, out);
-    }
+    void error(CharSequence message, Throwable t);
 
-    public StreamLog(boolean debug, PrintStream out, PrintStream err) {
-        this.debug = debug;
-        this.out = out;
-        this.err = err;
-    }
-
-    @Override
-    public void info(CharSequence content) {
-        this.err.println("INFO: " + content);
-    }
-
-    @Override
-    public void warn(CharSequence content) {
-        this.err.println("WARNING: " + content);
-    }
-
-    @Override
-    public void error(CharSequence content, Throwable error) {
-        this.err.println("ERROR: " + content);
-        error.printStackTrace(this.err);
-    }
+    void warn(CharSequence message);
 
 }

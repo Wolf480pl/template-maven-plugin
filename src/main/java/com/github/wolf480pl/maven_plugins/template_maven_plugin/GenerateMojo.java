@@ -98,10 +98,11 @@ public class GenerateMojo extends AbstractMojo {
         }
 
         Generator generator;
+        Logging log = new MavenLog(getLog());
         if (this.wrappers != null) {
-            generator = new Generator(getLog(), this.outputDirectory, this.wrappers);
+            generator = new Generator(log, this.outputDirectory, this.wrappers);
         } else {
-            generator = new Generator(getLog(), this.outputDirectory);
+            generator = new Generator(log, this.outputDirectory);
         }
         if (this.clean) {
             generator.clean();

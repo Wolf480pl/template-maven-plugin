@@ -48,7 +48,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.maven.plugin.logging.Log;
 import org.junit.Test;
 
 /**
@@ -87,7 +86,7 @@ public class GeneratorTest {
         map.put(Integer.valueOf(1), "Line 2 - #E#");
         map.put(Integer.valueOf(2), "Line 3 - #K# #V#");
 
-        Log log = mock(Log.class);
+        Logging log = mock(Logging.class);
         File file = mock(File.class);
 
         String output = new Generator(log, file).processReplication(test, map);
