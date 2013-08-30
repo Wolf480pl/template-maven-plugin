@@ -75,7 +75,7 @@ public class GenerateMojo extends AbstractMojo {
     private boolean clean;
 
     @Parameter
-    private WrapperInfo[] wrappers;
+    private WrapperInfo[] types;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -99,8 +99,8 @@ public class GenerateMojo extends AbstractMojo {
 
         Generator generator;
         Logging log = new MavenLog(getLog());
-        if (this.wrappers != null) {
-            generator = new Generator(log, this.outputDirectory, this.wrappers);
+        if (this.types != null) {
+            generator = new Generator(log, this.outputDirectory, this.types);
         } else {
             generator = new Generator(log, this.outputDirectory);
         }

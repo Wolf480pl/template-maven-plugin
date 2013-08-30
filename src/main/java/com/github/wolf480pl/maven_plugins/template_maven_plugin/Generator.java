@@ -386,7 +386,7 @@ public class Generator {
 
         for (WrapperInfo info : this.wrappers) {
             String e = info.primitive;
-            String ET = info.class_name;
+            String ET = info.wrapper;
             String E = info.abbreviate();
             String EC = E.toUpperCase();
             String EMAX = info.max_value;
@@ -457,7 +457,7 @@ public class Generator {
 
         for (WrapperInfo info : this.wrappers) {
             String k = info.primitive;
-            String KT = info.class_name;
+            String KT = info.wrapper;
             String K = info.abbreviate();
             String KC = K.toUpperCase();
             String KMAX = info.max_value;
@@ -476,7 +476,7 @@ public class Generator {
 
             for (WrapperInfo jinfo : this.wrappers) {
                 String v = jinfo.primitive;
-                String VT = jinfo.class_name;
+                String VT = jinfo.wrapper;
                 String V = jinfo.abbreviate();
                 String VC = V.toUpperCase();
                 String VMAX = jinfo.max_value;
@@ -518,7 +518,7 @@ public class Generator {
             boolean first_loop = true;
             for (WrapperInfo info : this.wrappers) {
                 String k = info.primitive;
-                String KT = info.class_name;
+                String KT = info.wrapper;
                 String K = info.abbreviate();
                 String KC = K.toUpperCase();
                 String KMAX = info.max_value;
@@ -528,7 +528,7 @@ public class Generator {
                     WrapperInfo jinfo = this.wrappers[j];
 
                     String v = jinfo.primitive;
-                    String VT = jinfo.class_name;
+                    String VT = jinfo.wrapper;
                     String V = jinfo.abbreviate();
                     String VC = V.toUpperCase();
                     String VMAX = jinfo.max_value;
@@ -664,7 +664,7 @@ public class Generator {
 
     public static class WrapperInfo {
         protected String primitive;
-        protected String class_name;
+        protected String wrapper;
         protected String abbreviation;
         protected String max_value;
         protected String min_value;
@@ -680,7 +680,7 @@ public class Generator {
         protected WrapperInfo(String primitive, String class_name, String abbreviation, String max_value, String min_value) {
 
             this.primitive = primitive;
-            this.class_name = class_name;
+            this.wrapper = class_name;
             this.abbreviation = abbreviation;
             this.max_value = class_name + "." + max_value;
             this.min_value = class_name + "." + min_value;
@@ -690,7 +690,7 @@ public class Generator {
             if (this.abbreviation != null) {
                 return this.abbreviation;
             }
-            return Generator.abbreviate(this.class_name);
+            return Generator.abbreviate(this.wrapper);
         }
     }
 }

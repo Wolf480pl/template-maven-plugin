@@ -29,15 +29,15 @@
           </execution>
         </executions>
         <configuration>
-<!--         <wrappers>
-            <wrapper>
+<!--         <types>
+            <type>
               <primitive>int</primitive>
-              <class_name>Integer</class_name>
+              <wrapper>Integer</wrapper>
               <abbreviation>I</abbreviation>
               <max_value>Integer.MAX_VALUE</max_value>
               <min_value>Integer.MIN_VALUE</min_value>
-            </wrapper>
-          </wrappers>-->
+            </type>
+          </types>-->
         </configuration>
       </plugin>
       <!-- Source compiler plugin -->
