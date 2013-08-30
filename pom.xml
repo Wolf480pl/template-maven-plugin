@@ -203,9 +203,14 @@
   <!-- Build profiles -->
   <profiles>
     <profile>
+      <activation>
+        <property>
+          <name>env.TRAVIS_BRANCH</name>
+          <value>master</value>
+        </property>
+      </activation>
       <id>run-its</id>
       <build>
-
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
