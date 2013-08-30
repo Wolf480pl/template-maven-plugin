@@ -362,15 +362,21 @@ public class Generator {
     private final WrapperInfo[] wrappers;
     private final File outputRootDir;
     private final Logging log;
+    private final String prefix;
 
     public Generator(Logging log, File outputDir) {
-        this(log, outputDir, WRAPPERS);
+        this(log, outputDir, "T");
     }
 
-    public Generator(Logging log, File outputDir, WrapperInfo[] wrappers) {
+    public Generator(Logging log, File outputDir, String prefix) {
+        this(log, outputDir, prefix, WRAPPERS);
+    }
+
+    public Generator(Logging log, File outputDir, String prefix, WrapperInfo[] wrappers) {
         this.log = log;
         this.outputRootDir = outputDir;
         this.wrappers = wrappers;
+        this.prefix = prefix;
     }
 
     public void clean() {
@@ -400,7 +406,7 @@ public class Generator {
             out = PATTERN_EMAX.matcher(out).replaceAll(EMAX);
             String processed_output = PATTERN_EMIN.matcher(out).replaceAll(EMIN);
 
-            String out_file_name = "T" + file_name;
+            String out_file_name = this.prefix + file_name;
             out_file_name = PATTERN_E_UNDERBAR.matcher(out_file_name).replaceAll(E);
 
             StringBuilder processed_replication_output = new StringBuilder();
@@ -471,7 +477,7 @@ public class Generator {
             out = PATTERN_KMAX.matcher(out).replaceAll(KMAX);
             out = PATTERN_KMIN.matcher(out).replaceAll(KMIN);
 
-            String out_file_name = "T" + file_name;
+            String out_file_name = this.prefix + file_name;
             out_file_name = PATTERN_K_UNDERBAR.matcher(out_file_name).replaceAll(K);
 
             for (WrapperInfo jinfo : this.wrappers) {

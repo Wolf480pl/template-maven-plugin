@@ -29,6 +29,7 @@
           </execution>
         </executions>
         <configuration>
+          <prefix>T</prefix>
 <!--         <types>
             <type>
               <primitive>int</primitive>

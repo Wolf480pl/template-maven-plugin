@@ -74,8 +74,17 @@ public class GenerateMojo extends AbstractMojo {
     @Parameter(alias = "cleanOutput")
     private boolean clean;
 
+    /**
+     * Types for which generate classes from templates.
+     */
     @Parameter
     private WrapperInfo[] types;
+
+    /**
+     * Prefix to add to generated files.
+     */
+    @Parameter(defaultValue = "")
+    private String prefix;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -96,13 +105,16 @@ public class GenerateMojo extends AbstractMojo {
                 getLog().info("Created output directory \"" + this.outputDirectory + "\"");
             }
         }
+        if (this.prefix == null) {
+            this.prefix = "";
+        }
 
         Generator generator;
         Logging log = new MavenLog(getLog());
         if (this.types != null) {
-            generator = new Generator(log, this.outputDirectory, this.types);
+            generator = new Generator(log, this.outputDirectory, this.prefix, this.types);
         } else {
-            generator = new Generator(log, this.outputDirectory);
+            generator = new Generator(log, this.outputDirectory, this.prefix);
         }
         if (this.clean) {
             generator.clean();
