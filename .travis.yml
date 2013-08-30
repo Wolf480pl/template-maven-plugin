@@ -1,13 +1,12 @@
 language: java
 jdk: openjdk7
-before_install:
-  - 'export COMMIT_MESSAGE=`curl https://api.github.com/repos/$TRAVIS_REPO_SLUG/git/commits/$TRAVIS_COMMIT |sed -n ''s/.*"message": "\(.*\)",/\1/p''`'
-  - '[ $TRAVIS_PULL_REQUEST == false -a $TRAVIS_REPO_SLUG == Wolf480pl/template-maven-plugin -a $TRAVIS_BRANCH == master ] && export DEPLOY=true || echo Not deploying'
 install: mvn clean package -DbuildNumber=${TRAVIS_BUILD_NUMBER} -DskipTests=true
 script: mvn verify
 after_success:
   - "git clone -b travis `git config --get remote.origin.url` target/travis"
+  - '[ $TRAVIS_PULL_REQUEST == false -a $TRAVIS_REPO_SLUG == Wolf480pl/template-maven-plugin -a $TRAVIS_BRANCH == master ] && export DEPLOY=true || echo Not deploying'
   - "[ $DEPLOY == true ] && mvn deploy --settings target/travis/settings.xml -DbuildNumber=${TRAVIS_BUILD_NUMBER}"
+#  - 'export COMMIT_MESSAGE=`curl https://api.github.com/repos/$TRAVIS_REPO_SLUG/git/commits/$TRAVIS_COMMIT |sed -n ''s/.*"message": "\(.*\)",/\1/p''`'
 #  - "[ $DEPLOY == true ] && echo $COMMIT_MESSAGE |grep -iF [site] && mvn site-deploy --settings target/travis/settings.xml -DbuildNumber=${TRAVIS_BUILD_NUMBER}"
 
 notifications:
