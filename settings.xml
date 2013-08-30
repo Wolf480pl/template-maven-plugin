@@ -16,6 +16,16 @@ http://maven.apache.org/xsd/settings-1.0.0.xsd">
   </servers>
   <mirrors/>
   <proxies/>
-  <profiles/>
+  <profiles>
+    <profile>
+      <id>run-its</id>
+      <activation>
+        <property>
+          <name>env.TRAVIS_BRANCH</name>
+          <value>master</value>
+        </property>
+      </activation>
+    </profile>
+  </profiles>
   <activeProfiles/>
 </settings>
