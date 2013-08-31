@@ -369,9 +369,9 @@ public class Vector3#E# implements Vector#E#, Comparable<Vector3#E#>, Serializab
 	@Override
 	public int hashCode() {
 		if (!hashed) {
-			int result = (x != +0.0f ? #ET#.#e#ToIntBits(x) : 0);
-			result = 31 * result + (y != +0.0f ? #ET#.#e#ToIntBits(y) : 0);
-			hashCode = 31 * result + (z != +0.0f ? #ET#.#e#ToIntBits(z) : 0);
+			int result = (x != +0.0f ? #EHashFunc#(x) : 0);
+			result = 31 * result + (y != +0.0f ? #EHashFunc#(y) : 0);
+			hashCode = 31 * result + (z != +0.0f ? #EHashFunc#(z) : 0);
 			hashed = true;
 		}
 		return hashCode;

@@ -36,6 +36,9 @@
               <abbreviation>i</abbreviation>
               <max_value>Integer.MAX_VALUE</max_value>
               <min_value>Integer.MIN_VALUE</min_value>
+              <placeholders>
+                <HashFunc></HashFunc>
+              </placeholders>
             </type>
             <type>
               <primitive>float</primitive>
@@ -43,6 +46,9 @@
               <abbreviation>f</abbreviation>
               <max_value>Float.POSITIVE_INFINITY</max_value>
               <min_value>Float.NEGATIVE_INFINITY</min_value>
+              <placeholders>
+                <HashFunc>Float.floatToIntBits</HashFunc>
+              </placeholders>
             </type>
             <type>
               <primitive>double</primitive>
@@ -50,6 +56,9 @@
               <abbreviation>d</abbreviation>
               <max_value>Double.POSITIVE_INFINITY</max_value>
               <min_value>Double.NEGATIVE_INFINITY</min_value>
+              <placeholders>
+                <HashFunc>(int) Double.doubleToLongBits</HashFunc>
+              </placeholders>
             </type>
           </types>
         </configuration>
