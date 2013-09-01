@@ -38,6 +38,7 @@
               <min_value>Integer.MIN_VALUE</min_value>
               <placeholders>
                 <HashFunc>HashFunctions.hash</HashFunc>
+                <Overload>double</Overload>
               </placeholders>
             </type>
             <type>
@@ -48,6 +49,7 @@
               <min_value>Float.NEGATIVE_INFINITY</min_value>
               <placeholders>
                 <HashFunc>HashFunctions.hash</HashFunc>
+                <Overload>double</Overload>
               </placeholders>
             </type>
             <type>
@@ -58,6 +60,7 @@
               <min_value>Double.NEGATIVE_INFINITY</min_value>
               <placeholders>
                 <HashFunc>HashFunctions.hash</HashFunc>
+                <Overload>float</Overload>
               </placeholders>
             </type>
           </types>

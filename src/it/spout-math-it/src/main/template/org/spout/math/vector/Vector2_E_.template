@@ -62,7 +62,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		this(v.get(0), v.get(1));
 	}
 
-	public Vector2#E#(double x, double y) {
+	public Vector2#E#(#EOverload# x, #EOverload# y) {
 		this((#e#) x, (#e#) y);
 	}
 
@@ -91,7 +91,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return add(v.x, v.y);
 	}
 
-	public Vector2#E# add(double x, double y) {
+	public Vector2#E# add(#EOverload# x, #EOverload# y) {
 		return add((#e#) x, (#e#) y);
 	}
 
@@ -103,7 +103,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return sub(v.x, v.y);
 	}
 
-	public Vector2#E# sub(double x, double y) {
+	public Vector2#E# sub(#EOverload# x, #EOverload# y) {
 		return sub((#e#) x, (#e#) y);
 	}
 
@@ -111,7 +111,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return new Vector2#E#(this.x - x, this.y - y);
 	}
 
-	public Vector2#E# mul(double a) {
+	public Vector2#E# mul(#EOverload# a) {
 		return mul((#e#) a);
 	}
 
@@ -124,7 +124,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return mul(v.x, v.y);
 	}
 
-	public Vector2#E# mul(double x, double y) {
+	public Vector2#E# mul(#EOverload# x, #EOverload# y) {
 		return mul((#e#) x, (#e#) y);
 	}
 
@@ -132,7 +132,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return new Vector2#E#(this.x * x, this.y * y);
 	}
 
-	public Vector2#E# div(double a) {
+	public Vector2#E# div(#EOverload# a) {
 		return div((#e#) a);
 	}
 
@@ -145,7 +145,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return div(v.x, v.y);
 	}
 
-	public Vector2#E# div(double x, double y) {
+	public Vector2#E# div(#EOverload# x, #EOverload# y) {
 		return div((#e#) x, (#e#) y);
 	}
 
@@ -157,7 +157,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return dot(v.x, v.y);
 	}
 
-	public #e# dot(double x, double y) {
+	public #e# dot(#EOverload# x, #EOverload# y) {
 		return dot((#e#) x, (#e#) y);
 	}
 
@@ -165,7 +165,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return this.x * x + this.y * y;
 	}
 
-	public Vector2#E# pow(double pow) {
+	public Vector2#E# pow(#EOverload# pow) {
 		return pow((#e#) pow);
 	}
 
@@ -203,7 +203,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return min(v.x, v.y);
 	}
 
-	public Vector2#E# min(double x, double y) {
+	public Vector2#E# min(#EOverload# x, #EOverload# y) {
 		return min((#e#) x, (#e#) y);
 	}
 
@@ -215,7 +215,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return max(v.x, v.y);
 	}
 
-	public Vector2#E# max(double x, double y) {
+	public Vector2#E# max(#EOverload# x, #EOverload# y) {
 		return max((#e#) x, (#e#) y);
 	}
 
@@ -227,7 +227,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return distanceSquared(v.x, v.y);
 	}
 
-	public #e# distanceSquared(double x, double y) {
+	public #e# distanceSquared(#EOverload# x, #EOverload# y) {
 		return distanceSquared((#e#) x, (#e#) y);
 	}
 
@@ -239,7 +239,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return distance(v.x, v.y);
 	}
 
-	public #e# distance(double x, double y) {
+	public #e# distance(#EOverload# x, #EOverload# y) {
 		return distance((#e#) x, (#e#) y);
 	}
 
@@ -287,7 +287,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return toVector3(0);
 	}
 
-	public Vector3 toVector3(double z) {
+	public Vector3 toVector3(#EOverload# z) {
 		return toVector3((#e#) z);
 	}
 
@@ -299,7 +299,7 @@ public class Vector2#E# implements Vector#E#, Comparable<Vector2#E#>, Serializab
 		return toVector4(0, 0);
 	}
 
-	public Vector4 toVector4(double z, double w) {
+	public Vector4 toVector4(#EOverload# z, #EOverload# w) {
 		return toVector4#E#((#e#) z, (#e#) w);
 	}
 
