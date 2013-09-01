@@ -37,7 +37,7 @@
               <max_value>Integer.MAX_VALUE</max_value>
               <min_value>Integer.MIN_VALUE</min_value>
               <placeholders>
-                <HashFunc></HashFunc>
+                <HashFunc>HashFunctions.hash</HashFunc>
               </placeholders>
             </type>
             <type>
@@ -47,7 +47,7 @@
               <max_value>Float.POSITIVE_INFINITY</max_value>
               <min_value>Float.NEGATIVE_INFINITY</min_value>
               <placeholders>
-                <HashFunc>Float.floatToIntBits</HashFunc>
+                <HashFunc>HashFunctions.hash</HashFunc>
               </placeholders>
             </type>
             <type>
@@ -57,7 +57,7 @@
               <max_value>Double.POSITIVE_INFINITY</max_value>
               <min_value>Double.NEGATIVE_INFINITY</min_value>
               <placeholders>
-                <HashFunc>(int) Double.doubleToLongBits</HashFunc>
+                <HashFunc>HashFunctions.hash</HashFunc>
               </placeholders>
             </type>
           </types>
