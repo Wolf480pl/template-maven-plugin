@@ -152,6 +152,13 @@ public class Generator {
         return type;
     }
 
+    protected static String ensureNoNull(String str) {
+        if (str == null) {
+            return "";
+        }
+        return str;
+    }
+
     private static void cleanDir(File directory) {
         for (File file : directory.listFiles()) {
             if (file.isDirectory()) {
@@ -400,11 +407,10 @@ public class Generator {
 
             String out = content;
             out = PATTERN_e.matcher(out).replaceAll(e);
-            out = PATTERN_E.matcher(out).replaceAll(E);
-            out = PATTERN_EC.matcher(out).replaceAll(EC);
-            out = PATTERN_ET.matcher(out).replaceAll(ET);
-            out = PATTERN_EMAX.matcher(out).replaceAll(EMAX);
-            String processed_output = PATTERN_EMIN.matcher(out).replaceAll(EMIN);
+            for (Map.Entry<Pattern, String> placeholder : info.getPlaceholders("E").entrySet()) {
+                out = placeholder.getKey().matcher(out).replaceAll(placeholder.getValue());
+            }
+            String processed_output = out;
 
             String out_file_name = this.prefix + file_name;
             out_file_name = PATTERN_E_UNDERBAR.matcher(out_file_name).replaceAll(E);
@@ -471,11 +477,9 @@ public class Generator {
 
             String out = content;
             out = PATTERN_k.matcher(out).replaceAll(k);
-            out = PATTERN_K.matcher(out).replaceAll(K);
-            out = PATTERN_KC.matcher(out).replaceAll(KC);
-            out = PATTERN_KT.matcher(out).replaceAll(KT);
-            out = PATTERN_KMAX.matcher(out).replaceAll(KMAX);
-            out = PATTERN_KMIN.matcher(out).replaceAll(KMIN);
+            for (Map.Entry<Pattern, String> placeholder : info.getPlaceholders("K").entrySet()) {
+                out = placeholder.getKey().matcher(out).replaceAll(placeholder.getValue());
+            }
 
             String out_file_name = this.prefix + file_name;
             out_file_name = PATTERN_K_UNDERBAR.matcher(out_file_name).replaceAll(K);
@@ -491,11 +495,10 @@ public class Generator {
                 String vout = out;
 
                 vout = PATTERN_v.matcher(vout).replaceAll(v);
-                vout = PATTERN_V.matcher(vout).replaceAll(V);
-                vout = PATTERN_VC.matcher(vout).replaceAll(VC);
-                vout = PATTERN_VT.matcher(vout).replaceAll(VT);
-                vout = PATTERN_VMAX.matcher(vout).replaceAll(VMAX);
-                String processed_output = PATTERN_VMIN.matcher(vout).replaceAll(VMIN);
+                for (Map.Entry<Pattern, String> placeholder : jinfo.getPlaceholders("V").entrySet()) {
+                    vout = placeholder.getKey().matcher(vout).replaceAll(placeholder.getValue());
+                }
+                String processed_output = vout;
 
                 StringBuilder processed_replication_output = new StringBuilder();
                 Map<Integer, String> replicated_blocks =
@@ -543,11 +546,9 @@ public class Generator {
                     String out = entry.getValue();
                     String before_e = out;
                     out = Pattern.compile("#e#").matcher(out).replaceAll(k);
-                    out = Pattern.compile("#E#").matcher(out).replaceAll(K);
-                    out = Pattern.compile("#ET#").matcher(out).replaceAll(KT);
-                    out = Pattern.compile("#EC#").matcher(out).replaceAll(KC);
-                    out = Pattern.compile("#EMAX#").matcher(out).replaceAll(KMAX);
-                    out = Pattern.compile("#EMIN#").matcher(out).replaceAll(KMIN);
+                    for (Map.Entry<Pattern, String> placeholder : info.getPlaceholders("E").entrySet()) {
+                        out = placeholder.getKey().matcher(out).replaceAll(placeholder.getValue());
+                    }
                     boolean uses_e = !out.equals(before_e);
 
                     // If we use "e" (instead of "k" & "v", then we don't need the inner
@@ -557,18 +558,14 @@ public class Generator {
                     }
 
                     out = Pattern.compile("#v#").matcher(out).replaceAll(v);
-                    out = Pattern.compile("#V#").matcher(out).replaceAll(V);
-                    out = Pattern.compile("#VT#").matcher(out).replaceAll(VT);
-                    out = Pattern.compile("#VC#").matcher(out).replaceAll(VC);
-                    out = Pattern.compile("#VMAX#").matcher(out).replaceAll(VMAX);
-                    out = Pattern.compile("#VMIN#").matcher(out).replaceAll(VMIN);
+                    for (Map.Entry<Pattern, String> placeholder : jinfo.getPlaceholders("V").entrySet()) {
+                        out = placeholder.getKey().matcher(out).replaceAll(placeholder.getValue());
+                    }
 
                     out = Pattern.compile("#k#").matcher(out).replaceAll(k);
-                    out = Pattern.compile("#K#").matcher(out).replaceAll(K);
-                    out = Pattern.compile("#KT#").matcher(out).replaceAll(KT);
-                    out = Pattern.compile("#KC#").matcher(out).replaceAll(KC);
-                    out = Pattern.compile("#KMAX#").matcher(out).replaceAll(KMAX);
-                    out = Pattern.compile("#KMIN#").matcher(out).replaceAll(KMIN);
+                    for (Map.Entry<Pattern, String> placeholder : info.getPlaceholders("K").entrySet()) {
+                        out = placeholder.getKey().matcher(out).replaceAll(placeholder.getValue());
+                    }
 
                     if (first_loop) {
                         first_loop = false;
@@ -674,6 +671,7 @@ public class Generator {
         protected String abbreviation;
         protected String max_value;
         protected String min_value;
+        protected Map<String, String> placeholders;
 
         public WrapperInfo() {
         }
@@ -697,6 +695,31 @@ public class Generator {
                 return this.abbreviation;
             }
             return Generator.abbreviate(this.wrapper);
+        }
+
+        public Map<String, String> getPlaceholders() {
+            if (this.placeholders == null) {
+                this.placeholders = new HashMap<String, String>();
+            }
+            return this.placeholders;
+        }
+
+        public Map<Pattern, String> getPlaceholders(String prefix) {
+            if (this.placeholders == null) {
+                this.placeholders = new HashMap<String, String>();
+            }
+            Map<Pattern, String> out = new HashMap<Pattern, String>();
+            out.put(Pattern.compile(Pattern.quote("#" + prefix + "#")), ensureNoNull(abbreviate()));
+            out.put(Pattern.compile(Pattern.quote("#" + prefix + "T#")), ensureNoNull(this.wrapper));
+            out.put(Pattern.compile(Pattern.quote("#" + prefix + "C#")), ensureNoNull(this.primitive.toUpperCase()));
+            out.put(Pattern.compile(Pattern.quote("#" + prefix + "MIN#")), ensureNoNull(this.min_value));
+            out.put(Pattern.compile(Pattern.quote("#" + prefix + "MAX#")), ensureNoNull(this.max_value));
+            for (Map.Entry<String, String> placeholder : this.placeholders.entrySet()) {
+                Pattern pattern = Pattern.compile(Pattern.quote("#" + prefix + placeholder.getKey() + "#"));
+                String value = ensureNoNull(placeholder.getValue());
+                out.put(pattern, value);
+            }
+            return out;
         }
     }
 }
