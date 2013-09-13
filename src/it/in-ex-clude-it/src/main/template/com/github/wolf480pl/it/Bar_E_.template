@@ -1,0 +1,7 @@
+package com.github.wolf480pl.it;
+
+public class Bar#E# {
+    public #e# get#E#() {
+        return 0;
+    }
+}

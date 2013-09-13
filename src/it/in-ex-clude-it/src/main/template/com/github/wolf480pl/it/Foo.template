@@ -1,0 +1,17 @@
+package com.github.wolf480pl.it;
+
+public class Foo {
+#REPLICATED1#
+    
+#REPLICATED2#
+}
+====START_REPLICATED_CONTENT #1====
+    private #e# x#E#;
+
+=====END_REPLICATED_CONTENT #1=====
+====START_REPLICATED_CONTENT #2====
+    public void set#E#(#e# x) {
+        x#E# = x;
+    }
+
+=====END_REPLICATED_CONTENT #2=====

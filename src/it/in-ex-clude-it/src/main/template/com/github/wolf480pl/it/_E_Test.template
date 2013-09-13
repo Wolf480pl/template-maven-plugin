@@ -1,0 +1,9 @@
+package com.github.wolf480pl.it;
+
+public class #E#Test {
+    private #e# x;
+    
+    public #E#Test(#e# x) {
+        this.x = x;
+    }
+}
