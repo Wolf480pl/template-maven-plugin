@@ -427,7 +427,7 @@ public class Generator {
         }
     }
 
-    private void processFile(File input_file, File output_directory)
+    protected void processFile(File input_file, File output_directory)
             throws IOException {
 
         this.log.info("Process file: " + input_file);

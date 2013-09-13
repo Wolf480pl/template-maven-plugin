@@ -36,6 +36,7 @@ package com.github.wolf480pl.maven_plugins.template_maven_plugin;
  */
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -45,6 +46,7 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.DirectoryScanner;
 
 import com.github.wolf480pl.maven_plugins.template_maven_plugin.Generator.WrapperInfo;
 
@@ -86,6 +88,12 @@ public class GenerateMojo extends AbstractMojo {
     @Parameter(defaultValue = "")
     private String prefix;
 
+    @Parameter
+    private String[] includes;
+
+    @Parameter
+    private String[] excludes;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (!this.templateDirectory.exists()) {
@@ -119,7 +127,27 @@ public class GenerateMojo extends AbstractMojo {
         if (this.clean) {
             generator.clean();
         }
-        generator.generate(this.templateDirectory);
+
+        if (this.includes != null || this.excludes != null) {
+            DirectoryScanner scanner = new DirectoryScanner();
+            scanner.addDefaultExcludes();
+            scanner.setBasedir(this.templateDirectory);
+            scanner.setIncludes(this.includes);
+            scanner.setExcludes(this.excludes);
+            scanner.scan();
+            for (String path : scanner.getIncludedFiles()) {
+                File in = new File(this.templateDirectory, path);
+                File outDir = new File(this.outputDirectory, path).getParentFile();
+                try {
+                    generator.processFile(in, outDir);
+                } catch (IOException e) {
+                    getLog().error("IOException ocurred while processing file: " + in, e);
+                }
+            }
+
+        } else {
+            generator.generate(this.templateDirectory);
+        }
 
         if (!this.project.getCompileSourceRoots().contains(this.outputDirectory.getAbsolutePath())) {
             this.project.addCompileSourceRoot(this.outputDirectory.getAbsolutePath());
