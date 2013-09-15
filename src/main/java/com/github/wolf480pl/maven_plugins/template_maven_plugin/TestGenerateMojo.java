@@ -46,26 +46,26 @@ import org.apache.maven.plugins.annotations.Parameter;
 /**
  *
  */
-@Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
-public class GenerateMojo extends AbstractGenerateMojo {
+@Mojo(name = "test-generate", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES)
+public class TestGenerateMojo extends AbstractGenerateMojo {
     /**
      * Directory where generated sources should be placed.
      */
-    @Parameter(alias = "outputDir", defaultValue = "${project.build.directory}/generated-sources/template", required = true)
+    @Parameter(alias = "outputDir", defaultValue = "${project.build.directory}/generated-test-sources/template", required = true)
     private File outputDirectory;
 
     /**
      * Directory where to look for templates.
      */
-    @Parameter(alias = "templateDir", defaultValue = "${basedir}/src/main/template", required = true)
+    @Parameter(alias = "templateDir", defaultValue = "${basedir}/src/test/template", required = true)
     private File templateDirectory;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         generate(this.templateDirectory, this.outputDirectory);
 
-        if (!this.project.getCompileSourceRoots().contains(this.outputDirectory.getAbsolutePath())) {
-            this.project.addCompileSourceRoot(this.outputDirectory.getAbsolutePath());
+        if (!this.project.getTestCompileSourceRoots().contains(this.outputDirectory.getAbsolutePath())) {
+            this.project.addTestCompileSourceRoot(this.outputDirectory.getAbsolutePath());
         }
     }
 

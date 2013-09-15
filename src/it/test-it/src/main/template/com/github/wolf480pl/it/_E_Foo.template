@@ -1,0 +1,13 @@
+package com.github.wolf480pl.it;
+
+public class #E#Foo {
+    private #e# x;
+    
+    public #e# getX() {
+        return this.x;
+    }
+    
+    public void setX(#e# x) {
+        this.x = x;
+    }
+}

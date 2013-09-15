@@ -1,0 +1,16 @@
+package com.github.wolf480pl.it;
+
+import static org.junit.Assert.assertTrue;
+
+import java.util.Random;
+import org.junit.Test;
+
+public class #E#FooTest {
+    @Test
+    public void test() {
+        #e# x = 8;
+        #E#Foo foo = new #E#Foo();
+        foo.setX(x);
+        assertTrue(Math.abs(x - foo.getX()) < 1);
+    }
+}
