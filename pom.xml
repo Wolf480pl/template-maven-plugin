@@ -3,13 +3,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <!-- Project information -->
-  <name>Maven Plugin For Trove Templates</name>
+  <name>Template Maven Plugin</name>
   <groupId>com.github.wolf480pl.maven-plugins</groupId>
   <artifactId>template-maven-plugin</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <url>http://github.com/Wolf480pl/template-maven-plugin</url>
   <inceptionYear>2013</inceptionYear>
   <packaging>maven-plugin</packaging>
+  <description>A maven plugin based on trove4j's source generator. Replicates each template file for every configured primitive and replaces placeholders. It's kinda like compile-time generics for primitive types.</description>
 
   <!-- Build properties -->
   <properties>
@@ -242,7 +243,6 @@
             </executions>
           </plugin>
         </plugins>
-
       </build>
     </profile>
   </profiles>
