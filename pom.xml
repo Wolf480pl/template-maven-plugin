@@ -5,7 +5,7 @@
   <name>Template Maven Plugin</name>
   <groupId>com.github.wolf480pl.maven-plugins</groupId>
   <artifactId>template-maven-plugin</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <url>http://github.com/Wolf480pl/template-maven-plugin</url>
   <inceptionYear>2013</inceptionYear>
   <packaging>maven-plugin</packaging>
@@ -42,7 +42,7 @@
     <url>http://github.com/Wolf480pl/template-maven-plugin</url>
     <connection>scm:git:git://github.com/Wolf480pl/template-maven-plugin.git</connection>
     <developerConnection>scm:git:git@github.com:Wolf480pl/template-maven-plugin.git</developerConnection>
-    <tag>v1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
   
   <!-- Continuous integration -->
