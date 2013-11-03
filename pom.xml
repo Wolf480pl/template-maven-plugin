@@ -10,7 +10,13 @@
   <inceptionYear>2013</inceptionYear>
   <packaging>maven-plugin</packaging>
   <description>A maven plugin based on trove4j's source generator. Replicates each template file for every configured primitive and replaces placeholders. It's kinda like compile-time generics for primitive types.</description>
-
+  
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+  
   <!-- Build properties -->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,20 +56,6 @@
   	<system>travis</system>
   	<url>https://travis-ci.org/Wolf480pl/template-maven-plugin</url>
   </ciManagement>
-  
-  <!-- Distrubution repositories -->
-  <distributionManagement>
-    <snapshotRepository>
-      <id>wolf480pl-snapshots</id>
-      <name>Wolf480pl Nexus Snapshots</name>
-      <url>http://nex-wolf480pl.rhcloud.com/nexus/content/repositories/snapshots/</url>
-    </snapshotRepository>
-    <repository>
-      <id>wolf480pl-releases</id>
-      <name>Wolf480pl Nexus Releases</name>
-      <url>http://nex-wolf480pl.rhcloud.com/nexus/content/repositories/releases/</url>
-    </repository>
-  </distributionManagement>
   
   <!-- Build dependencies -->
   <dependencies>
@@ -206,6 +198,7 @@
         <configuration>
           <localCheckout>true</localCheckout>
           <pushChanges>false</pushChanges>
+          <arguments>-Psonatype-oss-release,run-its</arguments>
         </configuration>
       </plugin>
     </plugins>
@@ -254,6 +247,22 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+    <profile>
+      <id>wolf480-nexus-deploy</id>
+      <activation>
+        <property>
+          <name>env.TRAVIS_BRANCH</name>
+          <value>master</value>
+        </property>
+      </activation>
+      <distributionManagement>
+        <snapshotRepository>
+          <id>wolf480pl-snapshots</id>
+          <name>Wolf480pl Nexus Snapshots</name>
+          <url>http://nex-wolf480pl.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+      </distributionManagement>
     </profile>
   </profiles>
 </project>
