@@ -711,9 +711,10 @@ public class Generator {
             Map<Pattern, String> out = new HashMap<Pattern, String>();
             out.put(Pattern.compile(Pattern.quote("#" + prefix + "#")), ensureNoNull(abbreviate()));
             out.put(Pattern.compile(Pattern.quote("#" + prefix + "T#")), ensureNoNull(this.wrapper));
-            out.put(Pattern.compile(Pattern.quote("#" + prefix + "C#")), ensureNoNull(this.primitive.toUpperCase()));
+            out.put(Pattern.compile(Pattern.quote("#" + prefix + "C#")), ensureNoNull(this.primitive).toUpperCase());
             out.put(Pattern.compile(Pattern.quote("#" + prefix + "MIN#")), ensureNoNull(this.min_value));
             out.put(Pattern.compile(Pattern.quote("#" + prefix + "MAX#")), ensureNoNull(this.max_value));
+
             for (Map.Entry<String, String> placeholder : this.placeholders.entrySet()) {
                 Pattern pattern = Pattern.compile(Pattern.quote("#" + prefix + placeholder.getKey() + "#"));
                 String value = ensureNoNull(placeholder.getValue());
